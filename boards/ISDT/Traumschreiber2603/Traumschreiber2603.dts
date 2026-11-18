@@ -1,0 +1,214 @@
+/dts-v1/;
+#include <nordic/nrf52840_qiaa.dtsi>
+#include <nordic/nrf52840_partition.dtsi>
+#include <zephyr/dt-bindings/adc/nrf-saadc.h>
+#include "Traumschreiber2603-pinctrl.dtsi"
+
+/ {
+	model = "The Traumschreiber ExG device";
+	compatible = "ISDT,Traumschreiber2603";
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &slot0_partition;
+	};
+
+
+	leds {
+		compatible = "gpio-leds";
+		led_red: led_0 {
+			gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
+			label = "LED_RED";
+		};
+		led_green: led_1 {
+			gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
+			label = "LED_GREEN";
+		};
+		led_blue: led_2 {
+			gpios = <&gpio0 22 GPIO_ACTIVE_LOW>;
+			label = "LED_BLUE";
+		};
+	};
+
+	buttons {
+		compatible = "gpio-keys";
+		button0: button_0 {
+			gpios = <&gpio1 9 (GPIO_PULL_UP | GPIO_ACTIVE_HIGH)>;
+			label = "Push button switch 0";
+		};
+	};
+
+	/* MAX98357 Audio Amplifier - falls I2S nicht funktioniert */
+	max98357 {
+		compatible = "gpio-keys"; // Missbrauche gpio-keys für einfachen GPIO-Zugriff
+		max98357_sd: max98357_sd {
+			gpios = <&gpio0 21 GPIO_ACTIVE_HIGH>; // Beispiel SD-Pin
+			label = "MAX98357_SD";
+		};
+	};
+
+	/* Diese Alias-Namen können in Anwendungen verwendet werden */
+	aliases {
+		led0 = &led_red;
+		led1 = &led_green;
+		led2 = &led_blue;
+		sw0 = &button0;
+		i2c0 = &i2c0;
+		adc0 = &adc;
+		i2s0 = &i2s0;
+		ads131m08 = &ads131m08;
+	};
+
+};
+
+
+
+/* GPIO-Controller aktivieren */
+&gpio0 {status = "okay"; };
+&gpio1 {status = "okay"; };
+&gpiote {status = "okay"; };
+
+/* UART als Konsole deaktivieren */
+&uart0 {status = "disabled"; };
+&gpio0 {status = "okay"; };
+&gpio1 {status = "okay"; };
+&gpiote {status = "okay"; };
+
+/* UART als Konsole deaktivieren */
+&uart0 {status = "disabled"; };
+
+/* ADC aktivieren */
+&adc {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@0 {
+		reg = <0>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN0>; /* P0.02 = AIN0 */
+		zephyr,resolution = <12>;
+	};
+
+	channel@1 {
+		reg = <1>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN1>; /* P0.03 = AIN1 */
+		zephyr,resolution = <12>;
+	};
+
+	channel@2 {
+		reg = <2>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN2>; /* P0.04 = AIN2 */
+		zephyr,resolution = <12>;
+	};
+
+	channel@3 {
+		reg = <3>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN3>; /* P0.05 = AIN3 */
+		zephyr,resolution = <12>;
+	};
+
+	channel@4 {
+		reg = <4>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN4>; /* P0.28 = AIN4 */
+		zephyr,resolution = <12>;
+	};
+
+	channel@5 {
+		reg = <5>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN5>; /* P0.29 = AIN5 */
+		zephyr,resolution = <12>;
+	};
+
+	channel@6 {
+		reg = <6>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN6>; /* P0.30 = AIN6 - Helligkeitssensor */
+		zephyr,resolution = <12>;
+	};
+
+	channel@7 {
+		reg = <7>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+		zephyr,input-positive = <NRF_SAADC_AIN7>; /* P0.31 = AIN7 */
+		zephyr,resolution = <12>;
+	};
+};
+
+/* I2S für MAX98357 Audio-Verstärker aktivieren */
+&i2s0 {
+	status = "okay";
+	pinctrl-0 = <&i2s0_default>;
+	pinctrl-names = "default";
+};
+
+/* SPI0 für ADS131M08 ADC aktivieren */
+&spi0 {
+	status = "okay";
+	pinctrl-0 = <&spi0_default>;
+	pinctrl-1 = <&spi0_sleep>;
+	pinctrl-names = "default", "sleep";
+	cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+
+	ads131m08: ads131m08@0 {
+		compatible = "ti,ads131m08";
+		#io-channel-cells = <1>;
+		drdy-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+		sync-gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
+		reg = <0>;
+		spi-max-frequency = <1000000>; /* 1MHz max for ADS131M08 */
+		label = "ADS131M08";
+	};
+};
+
+
+/* SPI1 für microSD-Kartenleser aktivieren */
+&spi1 {
+	status = "okay";
+	cs-gpios = <&gpio0 24 GPIO_ACTIVE_LOW>; /* CS an P0.24 */
+	pinctrl-0 = <&spi1_default>;
+	pinctrl-1 = <&spi1_sleep>;
+	pinctrl-names = "default", "sleep";
+
+	sdhc0: sdhc@0 {
+		compatible = "zephyr,sdhc-spi-slot";
+		reg = <0>;
+		status = "okay";
+		mmc {
+			compatible = "zephyr,sdmmc-disk";
+			disk-name = "SD";
+			status = "okay";
+		};
+		spi-max-frequency = <24000000>;
+};};
+
+/* PWM für RGB LED Steuerung aktivieren */
+&pwm0 {
+	status = "okay";
+	pinctrl-0 = <&pwm0_default>;
+	pinctrl-1 = <&pwm0_sleep>;
+	pinctrl-names = "default", "sleep";
+};
+

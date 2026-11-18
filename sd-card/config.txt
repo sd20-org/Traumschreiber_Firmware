@@ -1,0 +1,45 @@
+# Traumschreiber TS2607 - Einstellungen (fw 0.0.94)
+# Format SCHLUESSEL=WERT, Zeilen mit # sind Kommentare.
+# Neustart uebernimmt Aenderungen. Datei unter 2 KB halten
+# (die Firmware bearbeitet sie in einem 2048-B-Puffer).
+
+# Funk an (1) oder aus (0)
+BLE_ENABLED=1
+
+# Abtastrate in Hz
+SAMPLE_RATE=250
+
+# EEG-Verstaerkung fuer alle Kanaele (1,2,4,8,...,128).
+# x4 = +-300 mV Reserve (schweissfest), 24-bit BDF verliert keine Aufloesung.
+ADS_GAIN=4
+
+# Kanaele, die per BLE uebertragen werden
+BLE_TRANSFER_CHANNELS=0,1,2,3,4,5,6,7
+
+# Startton in SOUNDS/ und seine Lautstaerke in Prozent.
+# TSBOOT.WAV ist auf 60 abgestimmt; die Firmware begrenzt jede
+# Wiedergabe auf -16 dBFS Spitze (Schutz von Versorgung und SD-Karte).
+START_SOUND=TSBOOT.WAV
+START_SOUND_VOLUME=60
+
+# Lautstaerke fuer Toene aus der App in Prozent (100 = unveraendert)
+FIRMWARE_MAX_VOLUME_PERCENT=300
+
+# Debug-Ausgabe ueber RTT (1) und Ausfuehrlichkeit (0-4)
+RTT_ENABLED=1
+LOG_LEVEL=3
+
+# Taster. Ohne Eintrag gelten Test-Aktionen der Firmware,
+# deshalb alle Gesten ausdruecklich belegen.
+# 1x: Akkustand per LED, 2x: LED-Test gruen,
+# 3x: Funk dauerhaft an/aus (weisses Blinken, wirkt nach Neustart)
+BUTTON_ACTION_SINGLE_CLICK=SHOW_BATTERY_LED_STATUS
+BUTTON_ACTION_DOUBLE_CLICK=GREEN_LED_DEMO
+BUTTON_ACTION_TRIPLE_CLICK=BLE_CONFIG_TOGGLE
+BUTTON_ACTION_LONG_PRESS=NONE
+BUTTON_ACTION_EXTRA_LONG_PRESS=NONE
+BUTTON_ACTION_SHORT_SHORT_LONG=NONE
+BUTTON_ACTION_SHORT_LONG=NONE
+BUTTON_ACTION_LONG_SHORT=NONE
+BUTTON_ACTION_SHORT_LONG_SHORT=NONE
+BUTTON_ACTION_LONG_SHORT_SHORT=NONE

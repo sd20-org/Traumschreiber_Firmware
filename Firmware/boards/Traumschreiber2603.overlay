@@ -1,0 +1,214 @@
+/*
+ * Traumschreiber2603 Device Tree Overlay
+ * nRF52840-based biometric data acquisition hardware mapping for:
+ * - ADS131M08 8-channel ADC (SPI)
+ * - microSD card storage (SPI)
+ * - MAX98357A I2S audio amplifier
+ * - RGB LED (PWM)
+ * - Button input
+ * - SAADC for analog sensors (battery, microphone, light)
+ */
+
+#include <zephyr/dt-bindings/regulator/nrf5x.h>
+
+/* Enable internal DC/DC converter (REG1: 3.3V → 1.3V core) for ~30-40% power savings */
+&reg1 {
+	regulator-initial-mode = <NRF5X_REG_MODE_DCDC>;
+};
+
+/* SPI1 is used by SD card in base DTS - do NOT disable */
+&i2c1 {status = "disabled"; };
+
+/* Enable SPI0 for ADS131M08 ADC with custom pin configuration */
+&spi0 {
+    compatible = "nordic,nrf-spim";
+    status = "okay";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+
+    ads131m08: ads131m08@0 {
+        compatible = "ti,ads131m08";
+        #io-channel-cells = <1>;
+        drdy-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+        sync-gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
+        reg = <0>;
+        spi-max-frequency = <1000000>; /* 1MHz max for ADS131M08 */
+        duplex = <0>;  /* Full duplex */
+        frame-format = <0>; /* SPI frame format */
+        label = "ADS131M08";
+    };
+};
+
+/* I2S for MAX98357A audio amplifier */
+&i2s0 {
+    compatible = "nordic,nrf-i2s";
+    status = "okay";
+    pinctrl-0 = <&i2s0_default>;
+    pinctrl-names = "default";
+    clock-source = "PCLK32M";  /* nRF52840 only supports PCLK32M, not ACLK */
+};
+
+/* SAADC for analog inputs - All 8 channels (AI0-AI7) */
+&adc {
+    status = "okay";
+
+    /* AIN0 - Analog Input 0 Brightness sensor */
+    channel@0 {
+        reg = <0>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        // zephyr,reference = "ADC_REF_VDD_1_4";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,input-positive = <NRF_SAADC_AIN0>;
+        // zephyr,input-negative = <NRF_SAADC_AIN7>;
+        // zephyr,differential;
+        // zephyr,vref-mv = <3000>;
+        zephyr,resolution = <14>;
+        zephyr,oversampling = <256>;
+        zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS,40)>;
+        status = "okay";
+    };
+
+    /* AIN1 - Analog Input 1 (not connected) */
+    channel@1 {
+        reg = <1>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN1>;
+        zephyr,resolution = <12>;
+        status = "okay";
+    };
+
+    /* AIN2 - Analog Input 2 Connector Pin 9 */
+    channel@2 {
+        reg = <2>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN2>;
+        zephyr,resolution = <12>;
+        status = "okay";
+    };
+
+    /* AIN3 - Analog Input 3 Microphone */
+    channel@3 {
+        reg = <3>;
+        zephyr,gain = "ADC_GAIN_1_4";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 3)>;
+        zephyr,input-positive = <NRF_SAADC_AIN3>;
+        zephyr,resolution = <12>;
+        status = "okay";
+    };
+
+    /* AIN4 - Analog Input 4 (Battery voltage monitoring) */
+    channel@4 {
+        reg = <4>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN4>;
+        zephyr,resolution = <12>;
+        status = "okay";
+    };
+
+    /* AIN5 - Analog Input 5 USB Charging Detection */
+    channel@5 {
+        reg = <5>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN5>;
+        zephyr,resolution = <12>;
+        status = "okay";
+    };
+
+    /* AIN6 - Analog Input 6 Connector Pin 8 */
+    channel@6 {
+        reg = <6>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN6>;
+        zephyr,resolution = <12>;
+        status = "okay";
+    };
+
+    /* AIN7 - Analog Input 7 COnnector Pin 6 */
+    channel@7 {
+        reg = <7>;
+        zephyr,gain = "ADC_GAIN_1_6";
+        zephyr,reference = "ADC_REF_INTERNAL";
+        zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        zephyr,input-positive = <NRF_SAADC_AIN7>;
+        zephyr,resolution = <12>;
+        status = "okay";
+    };
+};
+
+/* Pin control configurations */
+&pinctrl {
+    /* SPI0 pins for ADS131M08 - using our custom pin mapping */
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 6)>, /* P0.06 - SCLK */
+                    <NRF_PSEL(SPIM_MOSI, 1, 13)>, /* P1.13 - DIN */
+                    <NRF_PSEL(SPIM_MISO, 0, 26)>; /* P0.26 - DOUT */
+        };
+    };
+
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 6)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 13)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 26)>;
+            low-power-enable;
+        };
+    };
+
+    /* I2S pins for MAX98357A */
+    i2s0_default: i2s0_default {
+        group1 {
+            psels = <NRF_PSEL(I2S_SCK_M, 0, 15)>,
+                    <NRF_PSEL(I2S_LRCK_M, 0, 20)>,
+                    <NRF_PSEL(I2S_SDOUT, 0, 17)>,
+                    <NRF_PSEL(I2S_MCK, 0, 16)>;
+        };
+    };
+};
+
+/* Override LED configurations for RGB LED on custom pins */
+&led_red {
+    gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;  /* Red LED on P1.00 */
+};
+
+&led_green {
+    gpios = <&gpio0 22 GPIO_ACTIVE_LOW>; /* Green LED on P0.22 */
+};
+
+&led_blue {
+    gpios = <&gpio0 13 GPIO_ACTIVE_LOW>; /* Blue LED on P0.13 */
+};
+
+/* Button configuration: map sw0 to P1.09 (active low with pull-up) */
+&button0 {
+    gpios = <&gpio1 9 (GPIO_PULL_UP | GPIO_ACTIVE_HIGH)>;
+};
+
+/ {
+    aliases {
+        ads131m08 = &ads131m08;
+    };
+};
+
+/ {
+    chosen {
+        zephyr,console = &uart0;
+        zephyr,shell-uart = &uart0;
+        zephyr,uart-mcumgr = &uart0;
+        zephyr,bt-mon-uart = &uart0;
+        zephyr,bt-c2h-uart = &uart0;
+    };
+};

@@ -1,0 +1,5 @@
+board:
+  name: Traumschreiber2603
+  vendor: ISDT
+  socs:
+    - name: nrf52840

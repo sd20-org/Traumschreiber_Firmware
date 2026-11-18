@@ -1,0 +1,10 @@
+identifier: Traumschreiber2603/nrf52840
+name: The Traumschreiber ExG device
+vendor: ISDT
+type: mcu
+arch: arm
+ram: 256
+flash: 1024
+toolchain:
+  - zephyr
+supported: []

@@ -1,0 +1,124 @@
+
+[00:00:06.966,888] <inf> ads131m08_ti: Invoking user callback for sample 4700
+[00:00:06.990,783] <inf> ads131m08_ti: DRDY IRQ #4725: dt=1 ms (expect ~4ms for 250Hz)
+[00:00:07.015,777] <inf> ads131m08_ti: DRDY IRQ #4750: dt=1 ms (expect ~4ms for 250Hz)
+[00:00:07.015,808] <inf> ads131m08_ti: WORK #4750: IRQs=4750, samples_done=4748, lost=2
+[00:00:07.016,876] <inf> ads131m08_ti: Sample #4750 captured
+[00:00:07.016,876] <inf> ads131m08_ti: Invoking user callback for sample 4750
+[00:00:07.040,771] <inf> ads131m08_ti: DRDY IRQ #4775: dt=1 ms (expect ~4ms for 250Hz)
+[00:00:07.065,765] <inf> ads131m08_ti: DRDY IRQ #4800: dt=1 ms (expect ~4ms for 250Hz)
+[00:00:07.065,795] <inf> ads131m08_ti: WORK #4800: IRQs=4800, samples_done=4798, lost=2
+[00:00:07.066,864] <inf> ads131m08_ti: Sample #4800 captured
+[00:00:07.066,894] <inf> ads131m08_ti: Invoking user callback for sample 4800
+[00:00:07.090,759] <inf> ads131m08_ti: DRDY IRQ #4825: dt=1 ms (expect ~4ms for 250Hz)
+[00:00:07.115,783] <inf> ads131m08_ti: DRDY IRQ #4850: dt=1 ms (expect ~4ms for 250Hz)
+[00:00:07.115,814] <inf> ads131m08_ti: WORK #4850: IRQs=4850, samples_done=4848, lost=2
+[00:00:07.116,882] <inf> ads131m08_ti: Sample #4850 captured
+[00:00:07.116,882] <inf> ads131m08_ti: Invoking user callback for sample 4850
+[00:00:07.140,777] <inf> ads131m08_ti: DRDY IRQ #4875: dt=1 ms (expect ~4ms for 250Hz)
+[00:00:07.152,374] <inf> ads131m08_ti: *** DEFAULT RESULT: 4886 IRQs in 5s = 977 Hz ***
+[00:00:07.152,374] <inf> ads131m08_ti: === DEFAULT STATE REGISTERS 0-3 ===
+[00:00:07.155,364] <inf> ads131m08_ti: Register 0: 0x2801
+[00:00:07.158,294] <inf> ads131m08_ti: Register 1: 0x0510
+[00:00:07.161,224] <inf> ads131m08_ti: Register 2: 0x0000
+[00:00:07.164,154] <inf> ads131m08_ti: Register 3: 0x0600
+[00:00:07.164,154] <inf> ads131m08_ti: === END DEFAULT STATE ===
+[00:00:07.164,184] <inf> ads131m08_ti: === EXPERIMENT 2: VLP MODE (5 seconds) ===
+[00:00:07.164,184] <inf> ads131m08_ti: Setting MODE register for VLP test
+[00:00:07.164,184] <inf> ads131m08_ti: === CORRECTED WRITE REGISTER DEBUG ===
+[00:00:07.164,215] <inf> ads131m08_ti: Target: Write 0x0118 to register 0x02
+[00:00:07.164,215] <inf> ads131m08_ti: WREG command: 0x6200
+[00:00:07.164,245] <inf> ads131m08_ti: TX Atomic Frame (6 bytes): 62 00 00 | 01 18 00
+[00:00:07.164,764] <inf> ads131m08_ti: RX Response (6 bytes): 05 FF 00 | 00 19 8E
+[00:00:07.164,764] <inf> ads131m08_ti: WREG command echo: 0x0019 (expected: 0x6200)
+[00:00:07.164,764] <inf> ads131m08_ti: === END CORRECTED WRITE REGISTER DEBUG ===
+[00:00:07.167,999] <inf> ads131m08_ti: === VERIFICATION ATTEMPT 1 ===
+[00:00:07.167,999] <inf> ads131m08_ti: TX RREG cmd (3 bytes): A2 00 00
+[00:00:07.168,090] <inf> ads131m08_ti: RX from RREG cmd (3 bytes): 42 00 00
+[00:00:07.170,928] <inf> ads131m08_ti: TX NULL cmd (3 bytes): 00 00 00
+[00:00:07.170,989] <inf> ads131m08_ti: RX from NULL cmd (register data): 01 18 00
+[00:00:07.170,989] <inf> ads131m08_ti: Parsed register value: 0x0118 (expected: 0x0118)
+[00:00:07.171,020] <inf> ads131m08_ti: ✓ Register 0x02 write verification SUCCESS (attempt 1)
+[00:00:07.171,020] <inf> ads131m08_ti: === END VERIFICATION ===
+[00:00:07.171,020] <inf> ads131m08_ti: Setting CLOCK: VLP mode, internal osc, OSR=1024
+[00:00:07.171,051] <inf> ads131m08_ti: === CORRECTED WRITE REGISTER DEBUG ===
+[00:00:07.171,051] <inf> ads131m08_ti: Target: Write 0xFF8C to register 0x03
+[00:00:07.171,051] <inf> ads131m08_ti: WREG command: 0x6300
+[00:00:07.171,081] <inf> ads131m08_ti: TX Atomic Frame (6 bytes): 63 00 00 | FF 8C 00
+[00:00:07.171,142] <inf> ads131m08_ti: RX Response (6 bytes): 05 FF 00 | 00 19 CE
+[00:00:07.171,142] <inf> ads131m08_ti: WREG command echo: 0x0019 (expected: 0x6300)
+[00:00:07.171,173] <inf> ads131m08_ti: === END CORRECTED WRITE REGISTER DEBUG ===
+[00:00:07.174,835] <inf> ads131m08_ti: === VERIFICATION ATTEMPT 1 ===
+[00:00:07.174,835] <inf> ads131m08_ti: TX RREG cmd (3 bytes): A3 00 00
+[00:00:07.174,926] <inf> ads131m08_ti: RX from RREG cmd (3 bytes): 43 00 00
+[00:00:07.177,764] <inf> ads131m08_ti: TX NULL cmd (3 bytes): 00 00 00
+[00:00:07.177,856] <inf> ads131m08_ti: RX from NULL cmd (register data): FF 8C 00
+[00:00:07.177,856] <inf> ads131m08_ti: Parsed register value: 0xFF8C (expected: 0xFF8C)
+[00:00:07.177,856] <inf> ads131m08_ti: ✓ Register 0x03 write verification SUCCESS (attempt 1)
+[00:00:07.177,886] <inf> ads131m08_ti: === END VERIFICATION ===
+[00:00:07.276,397] <inf> ads131m08_ti: *** MEASURING VLP: 5 seconds... ***
+[00:00:07.506,164] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4890 dt=69 ms (too slow for 250Hz!)
+[00:00:07.841,156] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4895 dt=69 ms (too slow for 250Hz!)
+[00:00:08.176,147] <inf> ads131m08_ti: DRDY IRQ #4900: dt=69 ms (expect ~4ms for 250Hz)
+[00:00:08.176,147] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4900 dt=69 ms (too slow for 250Hz!)
+[00:00:08.176,208] <inf> ads131m08_ti: WORK #4900: IRQs=14, samples_done=4898, lost=4294962412
+[00:00:08.243,255] <inf> ads131m08_ti: Sample #4900 captured
+[00:00:08.243,255] <inf> ads131m08_ti: Invoking user callback for sample 4900
+[00:00:08.511,138] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4905 dt=69 ms (too slow for 250Hz!)
+[00:00:08.846,130] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4910 dt=69 ms (too slow for 250Hz!)
+[00:00:09.181,152] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4915 dt=69 ms (too slow for 250Hz!)
+[00:00:09.516,143] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4920 dt=69 ms (too slow for 250Hz!)
+[00:00:09.851,165] <inf> ads131m08_ti: DRDY IRQ #4925: dt=69 ms (expect ~4ms for 250Hz)
+[00:00:09.851,165] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4925 dt=69 ms (too slow for 250Hz!)
+[00:00:10.186,157] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4930 dt=68 ms (too slow for 250Hz!)
+[00:00:10.521,148] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4935 dt=68 ms (too slow for 250Hz!)
+[00:00:10.856,140] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4940 dt=68 ms (too slow for 250Hz!)
+[00:00:11.191,162] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4945 dt=68 ms (too slow for 250Hz!)
+[00:00:11.526,153] <inf> ads131m08_ti: DRDY IRQ #4950: dt=68 ms (expect ~4ms for 250Hz)
+[00:00:11.526,153] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4950 dt=68 ms (too slow for 250Hz!)
+[00:00:11.526,184] <inf> ads131m08_ti: WORK #4950: IRQs=64, samples_done=4948, lost=4294962412
+[00:00:11.593,261] <inf> ads131m08_ti: Sample #4950 captured
+[00:00:11.593,261] <inf> ads131m08_ti: Invoking user callback for sample 4950
+[00:00:11.861,145] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4955 dt=68 ms (too slow for 250Hz!)
+[00:00:12.161,163] <inf> ads131m08_ti: *** VLP RESULT: 73 IRQs in 5s = 14 Hz ***
+[00:00:12.161,163] <inf> ads131m08_ti: === VLP STATE REGISTERS 0-3 ===
+[00:00:12.164,154] <inf> ads131m08_ti: Register 0: 0x2801
+[00:00:12.167,083] <inf> ads131m08_ti: Register 1: 0x0510
+[00:00:12.170,013] <inf> ads131m08_ti: Register 2: 0x0118
+[00:00:12.172,943] <inf> ads131m08_ti: Register 3: 0xFF8C
+[00:00:12.172,973] <inf> ads131m08_ti: === END VLP STATE ===
+[00:00:12.172,973] <inf> ads131m08_ti: === EXPERIMENT 3: EXTERNAL OSCILLATOR (5 seconds) ===
+[00:00:12.172,973] <inf> ads131m08_ti: Setting CLOCK: External 2.048MHz crystal, OSR=4096
+[00:00:12.173,004] <inf> ads131m08_ti: === CORRECTED WRITE REGISTER DEBUG ===
+[00:00:12.173,004] <inf> ads131m08_ti: Target: Write 0xFF15 to register 0x03
+[00:00:12.173,004] <inf> ads131m08_ti: WREG command: 0x6300
+[00:00:12.173,034] <inf> ads131m08_ti: TX Atomic Frame (6 bytes): 63 00 00 | FF 15 00
+[00:00:12.173,553] <inf> ads131m08_ti: RX Response (6 bytes): 05 00 00 | 00 09 81
+[00:00:12.173,553] <inf> ads131m08_ti: WREG command echo: 0x0009 (expected: 0x6300)
+[00:00:12.173,583] <inf> ads131m08_ti: === END CORRECTED WRITE REGISTER DEBUG ===
+[00:00:12.176,788] <inf> ads131m08_ti: === VERIFICATION ATTEMPT 1 ===
+[00:00:12.176,788] <inf> ads131m08_ti: TX RREG cmd (3 bytes): A3 00 00
+[00:00:12.176,849] <inf> ads131m08_ti: RX from RREG cmd (3 bytes): 43 00 00
+[00:00:12.179,718] <inf> ads131m08_ti: TX NULL cmd (3 bytes): 00 00 00
+[00:00:12.179,779] <inf> ads131m08_ti: RX from NULL cmd (register data): FF 15 00
+[00:00:12.179,809] <inf> ads131m08_ti: Parsed register value: 0xFF15 (expected: 0xFF15)
+[00:00:12.179,809] <inf> ads131m08_ti: ✓ Register 0x03 write verification SUCCESS (attempt 1)
+[00:00:12.179,809] <inf> ads131m08_ti: === END VERIFICATION ===
+[00:00:12.278,350] <inf> ads131m08_ti: *** MEASURING EXTERNAL OSC: 5 seconds... ***
+[00:00:12.330,139] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4960 dt=206 ms (too slow for 250Hz!)
+[00:00:12.665,130] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4965 dt=69 ms (too slow for 250Hz!)
+[00:00:13.000,122] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4970 dt=69 ms (too slow for 250Hz!)
+[00:00:13.335,113] <inf> ads131m08_ti: DRDY IRQ #4975: dt=69 ms (expect ~4ms for 250Hz)
+[00:00:13.335,144] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4975 dt=69 ms (too slow for 250Hz!)
+[00:00:13.670,135] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4980 dt=69 ms (too slow for 250Hz!)
+[00:00:14.005,126] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4985 dt=69 ms (too slow for 250Hz!)
+[00:00:14.340,087] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4990 dt=69 ms (too slow for 250Hz!)
+[00:00:14.675,109] <wrn> ads131m08_ti: DRDY SLOW: IRQ #4995 dt=69 ms (too slow for 250Hz!)
+[00:00:15.010,101] <inf> ads131m08_ti: DRDY IRQ #5000: dt=69 ms (expect ~4ms for 250Hz)
+[00:00:15.010,101] <wrn> ads131m08_ti: DRDY SLOW: IRQ #5000 dt=69 ms (too slow for 250Hz!)
+[00:00:15.010,131] <inf> ads131m08_ti: WORK #5000: IRQs=41, samples_done=4998, lost=4294962339
+[00:00:15.077,209] <inf> ads131m08_ti: Sample #5000 captured
+[00:00:15.077,209] <inf> ads131m08_ti: Invoking user callback for sample 5000
+[00:00:15.345,092] <wrn> ads131m08_ti: DRDY SLOW: IRQ #5005 dt=69 ms (too slow for 250Hz!)
+[00:00:15.680,084] <wrn> ads131m08_ti: DRDY SLOW: IRQ #5010 dt=69 ms (too slow for 250Hz!)
+[00:00:16.015,075] <wrn> ads131m08_ti: DRDY SLOW: IRQ #5015 dt=69 ms (too slow for 250Hz!)
